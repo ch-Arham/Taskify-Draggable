@@ -9,16 +9,22 @@ interface Props {
   setTodos: React.Dispatch<React.SetStateAction<Todo[]>>;
 }
 
+// ------------------ SingleTodo Component ------------------
 const SingleTodo: React.FC<Props> = ({ todo, todos, setTodos }: Props) => {
+  // ------------------ useStates ------------------ //
   const [edit, setEdit] = useState<boolean>(false);
   const [editTodo, setEditTodo] = useState<string>(todo.todo);
 
+  // ------------------ useRef ------------------ //
   const inputRef = useRef<HTMLInputElement>(null);
 
+  // ------------------ useEffect ------------------ //
   useEffect(() => {
     inputRef?.current?.focus();
   }, [edit]);
 
+
+  // ------------------ Functions ------------------ //
   const handleDone = (id: number): void => {
     setTodos(
       todos.map((todo: Todo) =>
@@ -41,6 +47,7 @@ const SingleTodo: React.FC<Props> = ({ todo, todos, setTodos }: Props) => {
     setEdit(false);
   }
 
+  // ------------------ JSX ------------------ //
   return (
     <form 
         className="todos__single"
@@ -56,8 +63,13 @@ const SingleTodo: React.FC<Props> = ({ todo, todos, setTodos }: Props) => {
         />
       ) : (
         <>
-          {todo.isDone ? (<s className="todos__single--text">{todo.todo}</s>) : (
-          <span className="todos__single--text">{todo.todo}</span>)}
+          {
+            todo.isDone ? (
+              <s className="todos__single--text">{todo.todo}</s>
+            ) : (
+              <span className="todos__single--text">{todo.todo}</span>
+            )
+          }
         </>
       )}
 
@@ -72,9 +84,11 @@ const SingleTodo: React.FC<Props> = ({ todo, todos, setTodos }: Props) => {
         >
           <AiFillEdit />
         </span>
+
         <span className="icon" onClick={() => handleDelete(todo.id)}>
           <AiFillDelete />
         </span>
+        
         <span className="icon" onClick={() => handleDone(todo.id)}>
           <MdDone />
         </span>
