@@ -67,7 +67,7 @@
   }
   
   .dragcomplete {
-    background-color: rgb(255, 38, 0);
+    background-color: rgb(255, 38, 0) !important;
   }
   
   .remove {
